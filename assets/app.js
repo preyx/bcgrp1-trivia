@@ -1,4 +1,4 @@
-var gameCount = true
+let gameCount = true
 
 $(document).ready(function () {
   $('#results-display').hide()
@@ -11,10 +11,10 @@ $(document).ready(function () {
     $("#showButts").show()
   })
 })
-var quesionIndex
-var gameTimer
-var quizTime = 60 // seconds
-var questionObject = {
+let questionIndex = 0
+let gameTimer
+let quizTime = 60 // seconds
+const questionObject = {
   response_code: 0,
   results: [
     {
@@ -145,19 +145,22 @@ function populateQuestionDetails () {
   $('#question-container').empty()
   $('#answers-container').empty()
   $('#answer-response').empty()
-  $('#question-container').html(questionObject[quesionIndex].question)
-  var quesAnswers = questionObject[quesionIndex].answers
-  for (var i = 0; i < quesAnswers.length; i++) {
-    $('#answers-container').append('<div class="answer" data-content="' + quesAnswers[i].ansID + '">' + quesAnswers[i].answer + '</div>')
+  $('#question-container').html(questionObject.results[questionIndex].question)
+  let quesAnswers = questionObject.results[questionIndex].incorrect_answers
+  quesAnswers.length = 3
+  quesAnswers.push(questionObject.results[questionIndex].correct_answer)
+  console.log(quesAnswers)
+  for (let i = 0; i < quesAnswers.length; i++) {
+    $('#answers-container').append('<div class="answer">' + quesAnswers[i] + '</div>')
   }
   renderQuestionControls()
 }
 
 function renderQuestionControls () {
-  if (quesionIndex === 0) {
+  if (questionIndex === 0) {
     $('#previousQuestion').hide()
     $('#nextQuestion').show()
-  } else if (quesionIndex === questionObject.length - 1) {
+  } else if (questionIndex === questionObject.length - 1) {
     $('#previousQuestion').show()
     $('#nextQuestion').hide()
     $('#finish').show()
@@ -165,22 +168,22 @@ function renderQuestionControls () {
     $('#previousQuestion').show()
     $('#nextQuestion').show()
   }
-  // console.log("quesionIndex: " + quesionIndex + " length: " + questionObject.length);
+  // console.log("questionIndex: " + questionIndex + " length: " + questionObject.length);
 }
 
 function getPreviousQuestion () {
-  quesionIndex--
+  questionIndex--
   populateQuestionDetails()
 }
 
 function getNextQuestion () {
-  quesionIndex++
+  questionIndex++
   populateQuestionDetails()
 }
 
 function processAnswer () {
-  var selectedAnsID = parseInt($(this).attr('data-content'))
-  var correctAnsID = questionObject[quesionIndex].correct
+  const selectedAnsID = parseInt($(this).attr('data-content'))
+  const correctAnsID = questionObject[questionIndex].correct
 
   if (selectedAnsID === correctAnsID) {
     $('#answer-response').html('<h4>Correct!</h4>')
@@ -189,12 +192,12 @@ function processAnswer () {
     $('#answer-response').html("<h4>Sorry that's not right.<b> Lose 5 seconds...</h4>")
   }
 
-  // $("#answer-response").append(questionObject[quesionIndex].reason);
+  // $("#answer-response").append(questionObject[questionIndex].reason);
   $('#answer-response').show()
 
-  questionObject[quesionIndex].selected = selectedAnsID
+  questionObject[questionIndex].selected = selectedAnsID
 
-  // console.log(questionObject[quesionIndex].selected);
+  // console.log(questionObject[questionIndex].selected);
 }
 
 function countDown () {
@@ -212,8 +215,8 @@ $('#start').on('click', function () {
   $('#splash-screen').hide()
   $('#main-game').show()
   gameTimer = setInterval(countDown, 1000)
-  quesionIndex = 0
-  populateQuestionDetails(quesionIndex)
+  questionIndex = 0
+  populateQuestionDetails(questionIndex)
 })
 
 $(document).on('click', '.answer', processAnswer)
@@ -267,12 +270,12 @@ $('#restart').on('click', function () {
 })
 
 function processResults () {
-  var status
-  var correct = 0
-  var incorrect = 0
-  // var score = 0;
+  let status
+  let correct = 0
+  let incorrect = 0
+  // let score = 0;
 
-  for (var i = 0; i < questionObject.length; i++) {
+  for (let i = 0; i < questionObject.length; i++) {
     if (questionObject[i].correct === questionObject[i].selected) {
       correct++
       status = 'Correct!'
@@ -281,8 +284,8 @@ function processResults () {
       status = 'Incorrect!'
     }
     if (questionObject[i].selected !== null) {
-      var selectedText = 'NA'
-      for (var j = 0; j < questionObject[i].answers.length; j++) {
+      let selectedText = 'NA'
+      for (let j = 0; j < questionObject[i].answers.length; j++) {
         if (questionObject[i].answers[j].ansID === questionObject[i].selected) {
           selectedText = questionObject[i].answers[j].answer
           break
@@ -291,8 +294,8 @@ function processResults () {
     } else {
       selectedText = '--'
     }
-    var correctText = 'NA'
-    for (var k = 0; k < questionObject[i].answers.length; k++) {
+    let correctText = 'NA'
+    for (let k = 0; k < questionObject[i].answers.length; k++) {
       if (questionObject[i].answers[k].ansID === questionObject[i].correct) {
         correctText = questionObject[i].answers[k].answer
         break
