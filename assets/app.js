@@ -7,8 +7,8 @@ $(document).ready(function () {
   $('#nextQuestion').hide()
   $('#finish').hide()
   // $("#showButts").hide()
-  $('.answer').on('click', function () {
-    $('#showButts').show()
+  $(".answer").on('click', function () {
+    $("#showButts").show()
   })
 })
 let questionIndex = 0
