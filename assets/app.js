@@ -9,7 +9,6 @@ $(document).ready(function () {
   $("#finish").hide();
   // $("#showButts").hide()
   $(".answer").on('click', function () {
-
     $("#showButts").show()
   })
 });
