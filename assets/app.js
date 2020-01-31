@@ -147,6 +147,7 @@ function populateQuestionDetails () {
   $('#answer-response').empty()
   $('#question-container').html(questionObject.results[questionIndex].question)
   let quesAnswers = questionObject.results[questionIndex].incorrect_answers
+  quesAnswers.length = 3
   quesAnswers.push(questionObject.results[questionIndex].correct_answer)
   console.log(quesAnswers)
   for (let i = 0; i < quesAnswers.length; i++) {
