@@ -14,6 +14,7 @@ $(document).ready(function () {
 let questionIndex = 0
 let gameTimer
 let quizTime = 60 // seconds
+let quesAnswers = []
 const questionObject = {
   response_code: 0,
   results: [
@@ -146,10 +147,12 @@ function populateQuestionDetails () {
   $('#answers-container').empty()
   $('#answer-response').empty()
   $('#question-container').html(questionObject.results[questionIndex].question)
-  let quesAnswers = questionObject.results[questionIndex].incorrect_answers
-  quesAnswers.length = questionObject.results[questionIndex].incorrect_answers.length
+  quesAnswers.length = 0
+  quesAnswers = quesAnswers.concat(questionObject.results[questionIndex].incorrect_answers)
+  console.log(quesAnswers)
   quesAnswers.push(questionObject.results[questionIndex].correct_answer)
   quesAnswers = shuffle(quesAnswers)
+  console.log(quesAnswers)
   for (let i = 0; i < quesAnswers.length; i++) {
     $('#answers-container').append('<div class="answer">' + quesAnswers[i] + '</div>')
   }
