@@ -1,13 +1,18 @@
 var gameCount = true;
 
 $(document).ready(function () {
+
   $("#results-display").hide();
   $("#main-game").hide();
   $("#previousQuestion").hide();
   $("#nextQuestion").hide();
   $("#finish").hide();
-});
+  // $("#showButts").hide()
+  $(".answer").on('click', function () {
 
+    $("#showButts").show()
+  })
+});
 var quesionIndex;
 var gameTimer;
 var quizTime = 60; //seconds

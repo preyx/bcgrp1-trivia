@@ -15,7 +15,7 @@
     <h1 class="display-4">Trivia Quiz</h1>
     <p class="lead">Simple Trivia API Quiz</p>
     <hr class="my-4">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+    <button type="button" id="start" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
       Launch Quiz
     </button>
 
@@ -31,21 +31,26 @@
           </div>
           <div class="modal-body">
             <div id="main-game">
-              <div>
-                <div>
-                  <div class="timer" id="timeContainer">60</div>
-                  <div id="question-container" class="question-border">Question: </div>
-                  <div class="list-group">
-                    <div class="col-md-6 col-md-offset-3">
-                      <div class="text-center" id="answers-container">
-                        <div class="answer" class="btn-outline-primary" data-content="1000">Answer</div>
-                        <div class="answer" class="btn-outline-primary" data-content="1001">Answer</div>
-                        <div class="answer" class="btn-outline-primary" data-content="1002">Answer</div>
-                        <div class="answer" class="btn-outline-primary" data-content="1003">Answer</div>
-                      </div>
-                    </div>
+              <div class="timer" id="timeContainer">60</div>
+              <div id="question-container" class="question-border">Question: </div>
+              <div class="list-group">
+                <div class="col-md-6 col-md-offset-3">
+                  <div class="text-center" id="answers-container">
+                    <div class="answer" data-content="1000">Placeholder Answer</div>
+                    <div class="answer" data-content="1001">Placeholder Answer</div>
+                    <div class="answer" data-content="1002">Placeholder Answer</div>
+                    <div class="answer" data-content="1003">Placeholder Answer</div>
                   </div>
                 </div>
+                <footer class="well" id="showButts">
+                  <div>
+                    <div>
+                      <button class="btn btn-primary pull-left" id="previousQuestion">Back</button>
+                      <button class="btn btn-primary pull-right" id="nextQuestion">Next</button>
+                      <button class="btn btn-primary pull-right" id="finish">Finish</button>
+                    </div>
+                  </div>
+                </footer>
               </div>
               <div class="top-buffer">
                 <div>
