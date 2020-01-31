@@ -7,8 +7,8 @@ $(document).ready(function () {
   $('#nextQuestion').hide()
   $('#finish').hide()
   // $("#showButts").hide()
-  $(".answer").on('click', function () {
-    $("#showButts").show()
+  $('.answer').on('click', function () {
+    $('#showButts').show()
   })
 })
 let questionIndex = 0
@@ -147,9 +147,9 @@ function populateQuestionDetails () {
   $('#answer-response').empty()
   $('#question-container').html(questionObject.results[questionIndex].question)
   let quesAnswers = questionObject.results[questionIndex].incorrect_answers
-  quesAnswers.length = 3
+  quesAnswers.length = questionObject.results[questionIndex].incorrect_answers.length
   quesAnswers.push(questionObject.results[questionIndex].correct_answer)
-  console.log(quesAnswers)
+  quesAnswers = shuffle(quesAnswers)
   for (let i = 0; i < quesAnswers.length; i++) {
     $('#answers-container').append('<div class="answer">' + quesAnswers[i] + '</div>')
   }
