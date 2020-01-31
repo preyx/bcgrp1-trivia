@@ -237,16 +237,16 @@ function endGame () {
   const highScore = yourTime // change this to yourScore
   const score = JSON.parse(localStorage.getItem('score')) || []
 
-  const renderscore = _ => {
-    document.getElementById('score').innerHTML = ''
-    for (let i = 0; i < score.length; i++) {
-      const itemElem = document.createElement('li')
-      // itemElem.className = score[i].score ? 'complete' : 'incomplete'
+  // const renderscore = _ => {
+  //   document.getElementById('score').innerHTML = ''
+  //   for (let i = 0; i < score.length; i++) {
+  //     const itemElem = document.createElement('li')
+  //     // itemElem.className = score[i].score ? 'complete' : 'incomplete'
 
-      itemElem.innerHTML = `Name: <b>${score[i].text}</b>  -  Highscore: <b>${score[i].highScore}</b>`
-      document.getElementById('score').append(itemElem)
-    }
-  }
+  //     itemElem.innerHTML = `Name: <b>${score[i].text}</b>  -  Highscore: <b>${score[i].highScore}</b>`
+  //     document.getElementById('score').append(itemElem)
+  //   }
+  // }
 
   document.getElementById('addItem').addEventListener('click', event => {
     event.preventDefault()
