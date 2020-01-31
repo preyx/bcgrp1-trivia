@@ -11,7 +11,7 @@ $(document).ready(function () {
     $('#showButts').show()
   })
 })
-let quesionIndex
+let questionIndex = 0
 let gameTimer
 let quizTime = 60 // seconds
 const questionObject = {
@@ -145,19 +145,21 @@ function populateQuestionDetails () {
   $('#question-container').empty()
   $('#answers-container').empty()
   $('#answer-response').empty()
-  $('#question-container').html(questionObject.results[quesionIndex].question)
-  const quesAnswers = questionObject[questionIndex].incorrect_answers.push(questionObject[quesionIndex].answers)
+  $('#question-container').html(questionObject.results[questionIndex].question)
+  let quesAnswers = questionObject.results[questionIndex].incorrect_answers
+  quesAnswers.push(questionObject.results[questionIndex].correct_answer)
+  console.log(quesAnswers)
   for (let i = 0; i < quesAnswers.length; i++) {
-    $('#answers-container').append('<div class="answer">' + quesAnswers[i].answer + '</div>')
+    $('#answers-container').append('<div class="answer">' + quesAnswers[i] + '</div>')
   }
   renderQuestionControls()
 }
 
 function renderQuestionControls () {
-  if (quesionIndex === 0) {
+  if (questionIndex === 0) {
     $('#previousQuestion').hide()
     $('#nextQuestion').show()
-  } else if (quesionIndex === questionObject.length - 1) {
+  } else if (questionIndex === questionObject.length - 1) {
     $('#previousQuestion').show()
     $('#nextQuestion').hide()
     $('#finish').show()
@@ -165,22 +167,22 @@ function renderQuestionControls () {
     $('#previousQuestion').show()
     $('#nextQuestion').show()
   }
-  // console.log("quesionIndex: " + quesionIndex + " length: " + questionObject.length);
+  // console.log("questionIndex: " + questionIndex + " length: " + questionObject.length);
 }
 
 function getPreviousQuestion () {
-  quesionIndex--
+  questionIndex--
   populateQuestionDetails()
 }
 
 function getNextQuestion () {
-  quesionIndex++
+  questionIndex++
   populateQuestionDetails()
 }
 
 function processAnswer () {
   const selectedAnsID = parseInt($(this).attr('data-content'))
-  const correctAnsID = questionObject[quesionIndex].correct
+  const correctAnsID = questionObject[questionIndex].correct
 
   if (selectedAnsID === correctAnsID) {
     $('#answer-response').html('<h4>Correct!</h4>')
@@ -189,12 +191,12 @@ function processAnswer () {
     $('#answer-response').html("<h4>Sorry that's not right.<b> Lose 5 seconds...</h4>")
   }
 
-  // $("#answer-response").append(questionObject[quesionIndex].reason);
+  // $("#answer-response").append(questionObject[questionIndex].reason);
   $('#answer-response').show()
 
-  questionObject[quesionIndex].selected = selectedAnsID
+  questionObject[questionIndex].selected = selectedAnsID
 
-  // console.log(questionObject[quesionIndex].selected);
+  // console.log(questionObject[questionIndex].selected);
 }
 
 function countDown () {
@@ -212,8 +214,8 @@ $('#start').on('click', function () {
   $('#splash-screen').hide()
   $('#main-game').show()
   gameTimer = setInterval(countDown, 1000)
-  quesionIndex = 0
-  populateQuestionDetails(quesionIndex)
+  questionIndex = 0
+  populateQuestionDetails(questionIndex)
 })
 
 $(document).on('click', '.answer', processAnswer)
