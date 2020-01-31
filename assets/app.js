@@ -146,7 +146,7 @@ function populateQuestionDetails () {
   $('#answers-container').empty()
   $('#answer-response').empty()
   $('#question-container').html(questionObject.results[questionIndex].question)
-  const quesAnswers = questionObject.results[questionIndex].incorrect_answers
+  let quesAnswers = questionObject.results[questionIndex].incorrect_answers
   quesAnswers.length = questionObject.results[questionIndex].incorrect_answers.length
   quesAnswers.push(questionObject.results[questionIndex].correct_answer)
   quesAnswers = shuffle(quesAnswers)
